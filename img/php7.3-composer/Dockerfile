@@ -1,7 +1,7 @@
 FROM php:7.3-alpine3.8
 
-# update (-U), upgrade and install timezone data
-RUN apk upgrade -U && apk add --no-cache tzdata
+# update (-U), upgrade and install timezone data, bash, git, and openssh
+RUN apk upgrade -U && apk add --no-cache tzdata bash git openssh
 
 # install composer from latest image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
