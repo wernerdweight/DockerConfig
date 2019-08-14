@@ -1,11 +1,36 @@
-FROM php:7.3-alpine3.8
+FROM php:7.3-alpine3.10 AS base
 
-# update (-U), upgrade and install timezone data, bash, git, and openssh
-RUN apk upgrade -U && apk add --no-cache tzdata bash git openssh
+LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
+      version="1.1" \
+      description="PHP 7.3 + Composer + PostgreSQL"
+
+# update (-U), upgrade and install basic required packages
+RUN apk upgrade -U && \
+    apk add --no-cache \
+        bash git openssh grep php7-dev libzip-dev su-exec make g++ freetype-dev libjpeg-turbo-dev libpng-dev \
+        postgresql-dev && \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure pdo_pgsql && \
+    docker-php-ext-install -j$(nproc) pdo pdo_pgsql pgsql zip pcntl exif gd && \
+    # timezone fix (see https://github.com/gliderlabs/docker-alpine/issues/136)
+    apk add --update --no-cache tzdata && \
+    cp /usr/share/zoneinfo/Europe/Prague /etc/localtime && \
+    echo "Europe/Prague" > /etc/timezone && \
+    apk del tzdata && \
+    # clean unnecessary tmp cache
+    rm -rf /var/cache/apk/* && \
+    # smoke test
+    su-exec nobody true
+
+# alpine Linux iconv hack
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # install composer from latest image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
-      version="1.0" \
-      description="PHP 7.3 + Composer"
+# faster composer install (see https://github.com/hirak/prestissimo)
+RUN su-exec www-data composer global require hirak/prestissimo && \
+    su-exec www-data composer clear-cache
+
+WORKDIR /var/www/html
