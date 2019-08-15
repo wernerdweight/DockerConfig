@@ -7,16 +7,15 @@ LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
 # update (-U), upgrade and install basic required packages
 RUN apk upgrade -U && \
     apk add --no-cache \
-        bash git openssh grep php7-dev libzip-dev su-exec make g++ freetype-dev libjpeg-turbo-dev libpng-dev \
+        bash git openssh grep php7-dev libzip-dev su-exec make g++ freetype-dev libjpeg-turbo-dev libpng-dev tzdata \
         postgresql-dev && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-configure pdo_pgsql && \
     docker-php-ext-install -j$(nproc) pdo pdo_pgsql pgsql zip pcntl exif gd && \
-    # timezone fix (see https://github.com/gliderlabs/docker-alpine/issues/136)
-    apk add --update --no-cache tzdata && \
     cp /usr/share/zoneinfo/Europe/Prague /etc/localtime && \
     echo "Europe/Prague" > /etc/timezone && \
-    apk del tzdata && \
+    echo "date.timezone = Europe/Prague" >> /usr/local/etc/php/conf.d/timezone.ini && \
+    echo "date.timezone = Europe/Prague" >> /etc/php7/conf.d/timezone.ini && \
     # clean unnecessary tmp cache
     rm -rf /var/cache/apk/* && \
     # smoke test
