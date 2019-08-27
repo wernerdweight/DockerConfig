@@ -8,7 +8,9 @@ LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
 RUN apk upgrade -U && \
     apk add --no-cache \
         bash git openssh grep php7-dev libzip-dev su-exec make g++ freetype-dev libjpeg-turbo-dev libpng-dev tzdata \
-        postgresql-dev && \
+        postgresql-dev rabbitmq-c-dev && \
+    pecl install amqp && \
+    docker-php-ext-enable amqp && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-configure pdo_pgsql && \
     docker-php-ext-install -j$(nproc) pdo pdo_pgsql pgsql zip pcntl exif gd && \

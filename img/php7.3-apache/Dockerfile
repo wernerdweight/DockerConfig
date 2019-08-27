@@ -1,7 +1,7 @@
 FROM wernerdweight/php7.3-composer:latest AS base
 
 LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
-      version="1.0" \
+      version="1.1" \
       description="PHP 7.3 Apache version"
 
 # install apache
@@ -10,7 +10,7 @@ RUN apk add \
 	php7-pdo php7-pdo_pgsql php7-ctype php7-json php7-session php7-tokenizer \
 	php7-dom php7-xml php7-xmlreader php7-xmlwriter php7-simplexml \
 	php7-mbstring php7-iconv php7-mcrypt php7-curl php7-zip php7-posix \
-	php7-intl php7-opcache php7-fileinfo php7-exif php7-gd php7-openssl
+	php7-intl php7-opcache php7-fileinfo php7-exif php7-gd php7-openssl php7-amqp
 
 # set-up apache environment
 RUN set -e && \
