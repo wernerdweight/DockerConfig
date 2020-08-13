@@ -22,3 +22,5 @@ RUN set -e; \
   \
   # smoke test
   su-exec nobody true;
+
+COPY fetch-dependencies.sh /usr/
