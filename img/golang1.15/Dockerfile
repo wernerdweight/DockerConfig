@@ -24,3 +24,4 @@ RUN set -e; \
   su-exec nobody true;
 
 COPY fetch-dependencies.sh /usr/
+RUN chmod u+x /usr/fetch-dependencies.sh
