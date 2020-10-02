@@ -2,14 +2,14 @@ FROM golang:1.15-alpine
 
 LABEL image.maintainer="Werner Dweight Solutions <info@wds.blue>"
 LABEL image.description="Go 1.15 base image."
-LABEL image.version="1.0"
+LABEL image.version="1.1"
 
 RUN set -e; \
   \
   # required packages
   apk update; \
   apk upgrade; \
-  apk add --no-cache bash git openssh grep su-exec; \
+  apk add --no-cache bash git openssh grep su-exec curl; \
   \
   # timezone fix (see https://github.com/gliderlabs/docker-alpine/issues/136)
   apk add --update --no-cache tzdata; \
