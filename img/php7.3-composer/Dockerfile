@@ -1,4 +1,4 @@
-FROM php:7.3-alpine3.10 AS base
+FROM php:7.3-alpine3.12 AS base
 
 LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
       version="1.2" \
@@ -30,9 +30,7 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 # install composer from latest image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# faster composer install (see https://github.com/hirak/prestissimo)
-RUN su-exec www-data composer global require hirak/prestissimo && \
-    su-exec www-data composer clear-cache
+RUN su-exec www-data composer clear-cache
 
 COPY fetch-dependencies.sh /usr/
 RUN chmod u+x /usr/fetch-dependencies.sh
