@@ -1,7 +1,7 @@
 FROM php:7.3-alpine3.10 AS base
 
 LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
-      version="1.1" \
+      version="1.2" \
       description="PHP 7.3 + Composer + PostgreSQL"
 
 # update (-U), upgrade and install basic required packages
@@ -33,5 +33,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # faster composer install (see https://github.com/hirak/prestissimo)
 RUN su-exec www-data composer global require hirak/prestissimo && \
     su-exec www-data composer clear-cache
+
+COPY fetch-dependencies.sh /usr/
+RUN chmod u+x /usr/fetch-dependencies.sh
 
 WORKDIR /var/www/html
