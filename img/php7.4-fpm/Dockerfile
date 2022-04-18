@@ -10,7 +10,7 @@ RUN apk upgrade -U && \
         $PHPIZE_DEPS python3 grpc libuuid icu-dev linux-headers php7-igbinary php7-redis postgresql-dev autoconf \
         bash git openssh grep php7-dev libzip-dev su-exec make g++ freetype-dev libjpeg-turbo-dev libpng-dev tzdata \
         gcc zlib-dev && \
-    pecl install protobuf grpc igbinary redis && \
+    pecl install protobuf-beta grpc igbinary redis && \
     docker-php-ext-enable grpc protobuf igbinary redis && \
     docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ && \
     docker-php-ext-configure pdo_pgsql && \

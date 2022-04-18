@@ -1,7 +1,7 @@
-FROM php:7.4-alpine3.10 AS base
+FROM php:7.4-alpine3.15 AS base
 
 LABEL maintainer="Werner Dweight Solutions <info@wds.blue>" \
-      version="1.0" \
+      version="1.1" \
       description="PHP 7.4 + Composer + PostgreSQL"
 
 # update (-U), upgrade and install basic required packages
@@ -30,8 +30,6 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 # install composer from latest image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# faster composer install (see https://github.com/hirak/prestissimo)
-RUN su-exec www-data composer global require hirak/prestissimo && \
-    su-exec www-data composer clear-cache
+RUN su-exec www-data composer clear-cache
 
 WORKDIR /var/www/html

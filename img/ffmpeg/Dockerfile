@@ -37,11 +37,11 @@ RUN apk add --no-cache --update-cache ladspa-dev libgme-dev rubberband-dev shine
 # AviSynth+ https://github.com/AviSynth/AviSynthPlus
 WORKDIR /tmp/AviSynthPlus
 RUN \
-	curl -fsSL https://github.com/AviSynth/AviSynthPlus/archive/v3.6.1.tar.gz | tar -xz --strip-components=1 && \
+	curl -fsSL https://github.com/AviSynth/AviSynthPlus/archive/v3.7.2.tar.gz | tar -xz --strip-components=1 && \
 	mkdir avisynth-build && \
 	cd avisynth-build && \
 	cmake -DCMAKE_BUILD_TYPE=Release ../ -DHEADERS_ONLY:bool=on && \
-	make -j $(nproc) install;
+	make -j $(nproc) VersionGen install;
 
 # bs2b http://bs2b.sourceforge.net/
 WORKDIR /tmp/bs2b
@@ -66,7 +66,7 @@ RUN \
 # libsrt https://github.com/Haivision/srt
 WORKDIR /tmp/srt
 RUN \
-	curl -fsSL https://github.com/Haivision/srt/archive/v1.4.1.tar.gz | tar -xz --strip-components=1 && \
+	curl -fsSL https://github.com/Haivision/srt/archive/v1.4.4.tar.gz | tar -xz --strip-components=1 && \
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="${PREFIX}" . && \
 	make -j $(nproc) && \
 	make -j $(nproc) install;
@@ -94,7 +94,7 @@ RUN \
 # libopenmpt - libopenmpt https://lib.openmpt.org/libopenmpt/
 WORKDIR /tmp/libopenmpt
 RUN \
-	curl -fsSL https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-0.5.0+release.autotools.tar.gz | tar -xz --strip-components=1 && \
+	curl -fsSL https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-0.6.2+release.autotools.tar.gz | tar -xz --strip-components=1 && \
 	./configure --prefix="${PREFIX}" --enable-static --enable-shared && \
 	make -j $(nproc) && \
 	make -j $(nproc) install;
