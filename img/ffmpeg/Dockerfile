@@ -110,15 +110,15 @@ RUN DIR=$(mktemp -d) && cd ${DIR} && \
     cd ffmpeg-${FFMPEG_VERSION} && \
     \
     ./configure \
-     --disable-stripping --enable-avisynth --enable-avresample --enable-chromaprint --enable-fontconfig \
+     --disable-stripping --enable-avisynth --enable-chromaprint --enable-fontconfig \
      --enable-frei0r --enable-gmp --enable-gpl --enable-gray --enable-ladspa --enable-libaom --enable-libass \
      --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libdav1d --enable-libdc1394 --enable-libflite \
-     --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm \
+     --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgsm \
      --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg \
-     --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librtmp --enable-librubberband --enable-libshine \
+     --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librtmp --enable-libshine \
      --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora \
-     --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp \
-     --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-nonfree \
+     --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp \
+     --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-nonfree \
      --enable-openal --enable-opengl --enable-openssl --enable-postproc --enable-sdl2 --enable-shared --enable-small \
      --enable-static --enable-version3 && \
     \
