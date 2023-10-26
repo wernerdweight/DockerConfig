@@ -1,8 +1,8 @@
-FROM node:20-alpine
+FROM node:21-alpine
 
 LABEL image.maintainer="Werner Dweight Solutions <info@wds.blue>"
-LABEL image.description="Node.js 20 base image."
-LABEL image.version="1.1"
+LABEL image.description="Node.js 21 base image."
+LABEL image.version="1.0"
 
 RUN set -e; \
   \
@@ -10,8 +10,6 @@ RUN set -e; \
   apk update; \
   apk upgrade; \
   apk add --no-cache bash git openssh grep su-exec curl; \
-  # update npm to latest to fix this bug: https://github.com/npm/cli/issues/6869
-  npm install -g npm@latest; \
   \
   # timezone fix (see https://github.com/gliderlabs/docker-alpine/issues/136)
   apk add --update --no-cache tzdata; \
