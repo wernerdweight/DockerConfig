@@ -10,11 +10,12 @@ RUN apk upgrade -U && \
         $PHPIZE_DEPS python3 grpc libuuid icu-dev linux-headers postgresql-dev autoconf \
         bash git openssh grep libzip-dev su-exec make g++ freetype-dev libjpeg-turbo-dev libpng-dev tzdata \
         gcc zlib-dev && \
-    pecl install protobuf-beta grpc igbinary redis && \
-    docker-php-ext-enable grpc protobuf igbinary redis && \
+    pecl install protobuf-beta igbinary redis && \
+    docker-php-ext-enable protobuf igbinary redis && \
     docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ && \
     docker-php-ext-configure pdo_pgsql && \
     docker-php-ext-install -j$(nproc) pdo pdo_pgsql pgsql zip pcntl exif gd intl
+RUN pecl install grpc && docker-php-ext-enable grpc
 RUN ln -sf /usr/bin/python3 /usr/bin/python && \
     cp /usr/share/zoneinfo/Europe/Prague /etc/localtime && \
     echo "Europe/Prague" > /etc/timezone && \
