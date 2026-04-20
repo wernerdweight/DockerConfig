@@ -11,7 +11,7 @@ while getopts ":k:r:" opt; do
   esac
 done
 
-mkdir /root/.ssh/ && \
+mkdir -p /root/.ssh/ && \
 echo "${key}" > /root/.ssh/id_rsa && \
 chmod 0600 /root/.ssh/id_rsa && \
 eval "$(ssh-agent -s)" && \
